@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時鐘作業</title>
+
+    <style>
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/orbitron/v35/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyxSmBoWgz.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        body {
+            background: url(./images/bg-2.jpg) no-repeat center/cover;
+        }
+
+        #clock {
+            width: 800px;
+            height: 800px;
+            background: url(./images/futuristic-time-machines-design_Matting.png) no-repeat center/contain;
+            border-radius: 50%;
+            position: relative;
+            top: 200px;
+            right: 0;
+            margin: auto;
+        }
+
+        #hour {
+            width: 30%;
+            height: 20px;
+            background: #dae020;
+            filter: drop-shadow(0 0 2px #dae020);
+            border-radius: 5px;
+            position: absolute;
+            left: 20%;
+            top: calc(50% - 4px);
+            transform-origin: right center;
+        }
+
+        #minute {
+            width: 40%;
+            height: 15px;
+            background: #00F6FF;
+            filter: drop-shadow(0 0 10px #00E7FF);
+            border-radius: 5px;
+            position: absolute;
+            left: 10%;
+            top: calc(50% - 3px);
+            transform-origin: right center;
+        }
+
+        #second {
+            width: 45%;
+            height: 10px;
+            background: #FF006F;
+            filter: drop-shadow(0 0 12px #FF006F);
+            border-radius: 5px;
+            position: absolute;
+            left: 5%;
+            top: calc(50% - 2px);
+            transform-origin: right center;
+        }
+
+        #example-clock-time {
+            text-align: center;
+            font-family: 'Orbitron';
+            font-size: 10rem;
+            margin-top: 140px;
+            color: #ffffff64;
+            text-shadow: 0 0 12px #6e083b, 0 0 24px #6e083b, 0 0 36px rgba(255, 0, 166, 0.75);
+        }
+
+        /* 減少文字抖動 */
+        .time-seg {
+            display: inline-block;
+            width: 2ch;
+            /* 兩個字寬（以 0 的寬度為基準） */
+            text-align: center;
+            /* 讓數字置中 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+    <div id="example-clock-time">
+        <span id="example-clock-time-hour" class="time-seg"></span>
+        <span>：</span>
+        <span id="example-clock-time-minute" class="time-seg"></span>
+        <span>：</span>
+        <span id="example-clock-time-second" class="time-seg"></span>
+    </div>
+    <script>
+        const elHour = document.getElementById('hour')
+        const elMinute = document.getElementById('minute')
+        const elSecond = document.getElementById('second')
+        const hourTextEl = document.getElementById("example-clock-time-hour");
+        const minuteTextEl = document.getElementById("example-clock-time-minute");
+        const secTextEl = document.getElementById("example-clock-time-second");
+
+        const clock = () => {
+            const date = new Date()
+            const h = date.getHours()
+            const m = date.getMinutes()
+            const s = date.getSeconds()
+
+            elHour.style.transform = `rotate(${h * 30 + 90}deg)`
+            elMinute.style.transform = `rotate(${m * 6 + 90}deg)`
+            elSecond.style.transform = `rotate(${s * 6 + 90}deg)`
+
+            hourTextEl.innerText = h.toString().padStart(2, "0");
+            minuteTextEl.innerText = m.toString().padStart(2, "0");
+            secTextEl.innerText = s.toString().padStart(2, "0");
+        }
+        setInterval(clock, 1000)
+        clock()
+    </script>
+</body>
+
+</html>
